@@ -1,6 +1,6 @@
 from flask_mail import Message
 from flask import render_template
-from flask_bable import _
+from flask_babel import _
 from app import app
 from app import mail
 

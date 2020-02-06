@@ -111,14 +111,14 @@ def edit_profile():
 def follow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash(_('User %(username)s not found.'), username=username)
+        flash(_('User %(username)s not found.', username=username))
         return redirect(url_for('index'))
     if user == current_user:
         flash(_('You cannot follow yourself!'))
         return redirect(url_for('user', username=username))
     current_user.follow(user)
     db.session.commit()
-    flash(_('You are following %(username)s!'), username=username)
+    flash(_('You are following %(username)s!', username=username))
     return redirect(url_for('user', username=username))
 
 @app.route('/unfollow/<username>')
@@ -126,14 +126,14 @@ def follow(username):
 def unfollow(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        flash(_('User %(username)s not found.'), username=username)
+        flash(_('User %(username)s not found.', username=username))
         return redirect(url_for('index'))
     if user == current_user:
         flash(_('You cannot unfollow yourself!'))
         return redirect(url_for('user', username=username))
     current_user.unfollow(user)
     db.session.commit()
-    flash(_('You are not following %(username)s.'), username=username)
+    flash(_('You are not following %(username)s.', username=username))
     return redirect(url_for('user', username=username))
 
 @app.route('/explore')
@@ -159,7 +159,7 @@ def reset_password_request():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             send_password_reset_email(user)
-        flash(_('Check your email for the instructions to reset your
+        flash(_('Check your email for the instructions to reset your \
                 password'))
         return redirect(url_for('login'))
     return render_template('reset_password_request.html', 
